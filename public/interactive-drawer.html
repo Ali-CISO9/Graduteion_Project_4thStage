@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Kitchen Drawer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+        }
+        .drawer-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .drawer-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 30%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .drawer-overlay:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(-50%) scale(1.05);
+        }
+        .drawer-overlay.open {
+            transform: translateX(-50%) translateY(-50px);
+            background-color: rgba(0, 255, 0, 0.3);
+        }
+        .drawer-overlay.closed {
+            transform: translateX(-50%) translateY(0);
+            background-color: rgba(255, 0, 0, 0.3);
+        }
+        .status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="placeholder.jpg" alt="Kitchen Drawer" class="drawer-image">
+        <div class="drawer-overlay closed" id="drawer">
+            Click to Open/Close Drawer
+        </div>
+        <div class="status" id="status">Drawer Closed</div>
+    </div>
+
+    <script>
+        const drawer = document.getElementById('drawer');
+        const status = document.getElementById('status');
+        let isOpen = false;
+
+        drawer.addEventListener('click', () => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                drawer.classList.remove('closed');
+                drawer.classList.add('open');
+                status.textContent = 'Drawer Open';
+            } else {
+                drawer.classList.remove('open');
+                drawer.classList.add('closed');
+                status.textContent = 'Drawer Closed';
+            }
+        });
+
+        drawer.addEventListener('mouseenter', () => {
+            drawer.style.transform = 'translateX(-50%) scale(1.05)';
+        });
+
+        drawer.addEventListener('mouseleave', () => {
+            drawer.style.transform = isOpen ? 'translateX(-50%) translateY(-50px)' : 'translateX(-50%) translateY(0)';
+        });
+    </script>
+</body>
+</html>
